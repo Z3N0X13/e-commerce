@@ -14,6 +14,7 @@ export interface AnimatedButtonProps
 export interface Product {
   id: number;
   title: string;
+  slug: string;
   description: string;
   price: number;
   imageUrl: string;
@@ -23,3 +24,16 @@ export interface Product {
 export type ProductCardProps = Product & {
   onRemove?: () => void;
 };
+
+export type Comment = {
+  user: string;
+  rating: number;
+  comment: string;
+};
+
+export interface CommentItemProps {
+  name: string;
+  rating: number;
+  comment: string;
+  date: string;
+}

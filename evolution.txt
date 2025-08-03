@@ -1,0 +1,4 @@
+1 - Bouton pour ajouter au favoris (quand on clique sur le coeur, on peut cliquer pour désajouter)
+2 - Faire les fiches produits
+3 - Faire le panier
+4 - Faire une fonctionnalité de stock / hors-stock dans la db

@@ -10,9 +10,9 @@ import Footer from "@/components/Footer";
 import GpuViewer from "@/components/GpuViewer";
 import { AnimatedButton } from "@/components/global/AnimatedButton";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { Star } from "lucide-react";
 
 export function DashboardClient({ session }: { session: Session }) {
-
   useEffect(() => {
     toast.message("Ravi de vous revoir, " + session.user?.name + " !", {
       duration: 5000,
@@ -122,13 +122,23 @@ export function DashboardClient({ session }: { session: Session }) {
               baseColor="bg-green-600"
               hoverColor="hover:bg-green-700"
               className="w-full cursor-pointer"
-              onClick={() => (window.location.href = "/dashboard/products/search?query=RTX+4090")}
+              onClick={() =>
+                (window.location.href =
+                  "/dashboard/products/details/nvidia-rtx-4090")
+              }
             >
               Commander maintenant
             </AnimatedButton>
-            <div className="flex items-center gap-2">
-              <span className="text-yellow-400 text-xl">★★★★★</span>
-              <span className="text-sm text-gray-400">(124 avis)</span>
+            <div className="flex items-center gap-1">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  size={16}
+                  fill={"#facc15"}
+                  stroke="#facc15"
+                />
+              ))}
+              <span className="text-sm text-gray-400">(11 avis)</span>
             </div>
           </div>
         </section>

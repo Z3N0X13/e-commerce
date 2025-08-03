@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 
 import { Product } from "@/types";
 
-const products: Product[] = [
+export const products: Product[] = [
   {
     id: 1,
     title: "NVIDIA RTX 5090",
+    slug: "nvidia-rtx-5090",
     description: "32 Go GDDR7 - Nouvelle génération",
     price: 2499,
     imageUrl: "/assets/5000-gen/rtx-5090.webp",
@@ -14,6 +15,7 @@ const products: Product[] = [
   {
     id: 3,
     title: "NVIDIA RTX 5080",
+    slug: "nvidia-rtx-5080",
     description: "20 Go GDDR7 - Gaming nouvelle génération",
     price: 1599,
     imageUrl: "/assets/5000-gen/rtx-5080.webp",
@@ -22,6 +24,7 @@ const products: Product[] = [
   {
     id: 4,
     title: "NVIDIA RTX 5070 Ti",
+    slug: "nvidia-rtx-5070-ti",
     description: "16 Go GDDR7 - Performance/Prix optimal",
     price: 999,
     imageUrl: "/assets/5000-gen/rtx-5070-ti.jpg",
@@ -30,6 +33,7 @@ const products: Product[] = [
   {
     id: 5,
     title: "NVIDIA RTX 5070",
+    slug: "nvidia-rtx-5070",
     description: "16 Go GDDR7 - Gaming 4K accessible",
     price: 799,
     imageUrl: "/assets/5000-gen/rtx-5070.jpg",
@@ -38,6 +42,7 @@ const products: Product[] = [
   {
     id: 6,
     title: "NVIDIA RTX 5060 Ti",
+    slug: "nvidia-rtx-5060-ti",
     description: "12 Go GDDR7 - Gaming 2K nouvelle gen",
     price: 599,
     imageUrl: "/assets/5000-gen/rtx-5060-ti.jpg",
@@ -46,6 +51,7 @@ const products: Product[] = [
   {
     id: 7,
     title: "NVIDIA RTX 5060",
+    slug: "nvidia-rtx-5060",
     description: "12 Go GDDR7 - Gaming 1440p abordable",
     price: 499,
     imageUrl: "/assets/5000-gen/rtx-5060.webp",
@@ -54,6 +60,7 @@ const products: Product[] = [
   {
     id: 8,
     title: "NVIDIA RTX 4090",
+    slug: "nvidia-rtx-4090",
     description: "24 Go GDDR6X - Performances ultimes",
     price: 1999,
     imageUrl: "/assets/4000-gen/rtx-4090.jpg",
@@ -62,6 +69,7 @@ const products: Product[] = [
   {
     id: 9,
     title: "NVIDIA RTX 4080 SUPER",
+    slug: "nvidia-rtx-4080-super",
     description: "16 Go GDDR6X - Gaming haut de gamme",
     price: 1399,
     imageUrl: "/assets/4000-gen/rtx-4080-super.webp",
@@ -70,6 +78,7 @@ const products: Product[] = [
   {
     id: 10,
     title: "NVIDIA RTX 4080",
+    slug: "nvidia-rtx-4080",
     description: "16 Go GDDR6X",
     price: 1299,
     imageUrl: "/assets/4000-gen/rtx-4080.jpg",
@@ -78,6 +87,7 @@ const products: Product[] = [
   {
     id: 11,
     title: "NVIDIA RTX 4070 Ti SUPER",
+    slug: "nvidia-rtx-4070-ti-super",
     description: "16 Go GDDR6X - Nouveau",
     price: 999,
     imageUrl: "/assets/4000-gen/rtx-4070-ti-super.jpg",
@@ -86,6 +96,7 @@ const products: Product[] = [
   {
     id: 12,
     title: "NVIDIA RTX 4070 Ti",
+    slug: "nvidia-rtx-4070-ti",
     description: "12 Go GDDR6X",
     price: 899,
     imageUrl: "/assets/4000-gen/rtx-4070-ti.jpg",
@@ -94,6 +105,7 @@ const products: Product[] = [
   {
     id: 13,
     title: "NVIDIA RTX 4070 SUPER",
+    slug: "nvidia-rtx-4070-super",
     description: "12 Go GDDR6X - Excellent rapport qualité/prix",
     price: 799,
     imageUrl: "/assets/4000-gen/rtx-4070-super.jpg",
@@ -102,6 +114,7 @@ const products: Product[] = [
   {
     id: 14,
     title: "NVIDIA RTX 4070",
+    slug: "nvidia-rtx-4070",
     description: "12 Go GDDR6X",
     price: 699,
     imageUrl: "/assets/4000-gen/rtx-4070.jpg",
@@ -110,6 +123,7 @@ const products: Product[] = [
   {
     id: 15,
     title: "NVIDIA RTX 4060 Ti 16GB",
+    slug: "nvidia-rtx-4060-ti-16g",
     description: "16 Go GDDR6 - Gaming 1440p",
     price: 599,
     imageUrl: "/assets/4000-gen/rtx-4060-ti-16g.jpg",
@@ -118,6 +132,7 @@ const products: Product[] = [
   {
     id: 16,
     title: "NVIDIA RTX 4060 Ti",
+    slug: "nvidia-rtx-4060-ti",
     description: "8 Go GDDR6",
     price: 499,
     imageUrl: "/assets/4000-gen/rtx-4060-ti.jpg",
@@ -126,6 +141,7 @@ const products: Product[] = [
   {
     id: 17,
     title: "NVIDIA RTX 4060",
+    slug: "nvidia-rtx-4060",
     description: "8 Go GDDR6 - Gaming 1080p",
     price: 399,
     imageUrl: "/assets/4000-gen/rtx-4060.jpg",
@@ -134,6 +150,7 @@ const products: Product[] = [
   {
     id: 18,
     title: "NVIDIA RTX 3090 Ti",
+    slug: "nvidia-rtx-3090-ti",
     description: "24 Go GDDR6X - Performance ultime gen précédente",
     price: 999,
     imageUrl: "/assets/3000-gen/rtx-3090-ti.jpg",
@@ -142,6 +159,7 @@ const products: Product[] = [
   {
     id: 19,
     title: "NVIDIA RTX 3090",
+    slug: "nvidia-rtx-3090",
     description: "24 Go GDDR6X - Créativité et Gaming",
     price: 899,
     imageUrl: "/assets/3000-gen/rtx-3090.jpg",
@@ -150,6 +168,7 @@ const products: Product[] = [
   {
     id: 20,
     title: "NVIDIA RTX 3080 Ti",
+    slug: "nvidia-rtx-3080-ti",
     description: "12 Go GDDR6X - Gaming premium",
     price: 799,
     imageUrl: "/assets/3000-gen/rtx-3080-ti.jpg",
@@ -158,6 +177,7 @@ const products: Product[] = [
   {
     id: 21,
     title: "NVIDIA RTX 3080",
+    slug: "nvidia-rtx-3080",
     description: "10 Go GDDR6X - Gaming 4K",
     price: 699,
     imageUrl: "/assets/3000-gen/rtx-3080.png",
@@ -166,6 +186,7 @@ const products: Product[] = [
   {
     id: 22,
     title: "NVIDIA RTX 3070 Ti",
+    slug: "nvidia-rtx-3070-ti",
     description: "8 Go GDDR6X - Performance 1440p",
     price: 599,
     imageUrl: "/assets/3000-gen/rtx-3070-ti.jpg",
@@ -174,6 +195,7 @@ const products: Product[] = [
   {
     id: 23,
     title: "NVIDIA RTX 3070",
+    slug: "nvidia-rtx-3070",
     description: "8 Go GDDR6 - Gaming équilibré",
     price: 499,
     imageUrl: "/assets/3000-gen/rtx-3070.jpg",
@@ -182,6 +204,7 @@ const products: Product[] = [
   {
     id: 24,
     title: "NVIDIA RTX 3060 Ti",
+    slug: "nvidia-rtx-3060-ti",
     description: "8 Go GDDR6 - 1440p abordable",
     price: 399,
     imageUrl: "/assets/3000-gen/rtx-3060-ti.jpg",
@@ -190,6 +213,7 @@ const products: Product[] = [
   {
     id: 25,
     title: "NVIDIA RTX 3060",
+    slug: "nvidia-rtx-3060",
     description: "12 Go GDDR6 - Gaming accessible",
     price: 329,
     imageUrl: "/assets/3000-gen/rtx-3060.jpg",
@@ -198,6 +222,7 @@ const products: Product[] = [
   {
     id: 26,
     title: "NVIDIA RTX 2080 Ti",
+    slug: "nvidia-rtx-2080-ti",
     description: "11 Go GDDR6 - Haut de gamme génération Turing",
     price: 499,
     imageUrl: "/assets/2000-gen/rtx-2080-ti.jpg",
@@ -206,6 +231,7 @@ const products: Product[] = [
   {
     id: 27,
     title: "NVIDIA RTX 2080 SUPER",
+    slug: "nvidia-rtx-2080-super",
     description: "8 Go GDDR6 - Performance boostée",
     price: 449,
     imageUrl: "/assets/2000-gen/rtx-2080-super.jpg",
@@ -214,6 +240,7 @@ const products: Product[] = [
   {
     id: 28,
     title: "NVIDIA RTX 2080",
+    slug: "nvidia-rtx-2080",
     description: "8 Go GDDR6 - Gaming haut de gamme",
     price: 399,
     imageUrl: "/assets/2000-gen/rtx-2080.jpg",
@@ -222,6 +249,7 @@ const products: Product[] = [
   {
     id: 29,
     title: "NVIDIA RTX 2070 SUPER",
+    slug: "nvidia-rtx-2070-super",
     description: "8 Go GDDR6 - Excellente alternative",
     price: 369,
     imageUrl: "/assets/2000-gen/rtx-2070-super.png",
@@ -230,6 +258,7 @@ const products: Product[] = [
   {
     id: 30,
     title: "NVIDIA RTX 2070",
+    slug: "nvidia-rtx-2070",
     description: "8 Go GDDR6 - Gaming QHD",
     price: 329,
     imageUrl: "/assets/2000-gen/rtx-2070.jpg",
@@ -238,6 +267,7 @@ const products: Product[] = [
   {
     id: 31,
     title: "NVIDIA RTX 2060 SUPER",
+    slug: "nvidia-rtx-2060-super",
     description: "8 Go GDDR6 - Performance 1080p/1440p",
     price: 299,
     imageUrl: "/assets/2000-gen/rtx-2060-super.jpeg",
@@ -246,6 +276,7 @@ const products: Product[] = [
   {
     id: 32,
     title: "NVIDIA RTX 2060",
+    slug: "nvidia-rtx-2060",
     description: "6 Go GDDR6 - Ray Tracing accessible",
     price: 269,
     imageUrl: "/assets/2000-gen/rtx-2060.jpg",
@@ -254,6 +285,7 @@ const products: Product[] = [
   {
     id: 33,
     title: "NVIDIA GTX 1080 Ti",
+    slug: "nvidia-gtx-1080-ti",
     description: "11 Go GDDR5X - Haut de gamme Pascal",
     price: 299,
     imageUrl: "/assets/1000-gen/gtx-1080-ti.png",
@@ -262,6 +294,7 @@ const products: Product[] = [
   {
     id: 34,
     title: "NVIDIA GTX 1080",
+    slug: "nvidia-gtx-1080",
     description: "8 Go GDDR5X - Excellente pour la 1440p",
     price: 249,
     imageUrl: "/assets/1000-gen/gtx-1080.jpg",
@@ -270,6 +303,7 @@ const products: Product[] = [
   {
     id: 35,
     title: "NVIDIA GTX 1070 Ti",
+    slug: "nvidia-gtx-1070-ti",
     description: "8 Go GDDR5 - Performances proches de la 1080",
     price: 229,
     imageUrl: "/assets/1000-gen/gtx-1070-ti.jpg",
@@ -278,6 +312,7 @@ const products: Product[] = [
   {
     id: 36,
     title: "NVIDIA GTX 1070",
+    slug: "nvidia-gtx-1070",
     description: "8 Go GDDR5 - Gaming QHD confortable",
     price: 199,
     imageUrl: "/assets/1000-gen/gtx-1070.webp",
@@ -286,6 +321,7 @@ const products: Product[] = [
   {
     id: 37,
     title: "NVIDIA GTX 1060 6GB",
+    slug: "nvidia-gtx-1060-6g",
     description: "6 Go GDDR5 - Full HD fluide",
     price: 149,
     imageUrl: "/assets/1000-gen/gtx-1060-6gb.jpg",
@@ -294,6 +330,7 @@ const products: Product[] = [
   {
     id: 38,
     title: "NVIDIA GTX 1060 3GB",
+    slug: "nvidia-gtx-1060-3g",
     description: "3 Go GDDR5 - Gaming 1080p léger",
     price: 129,
     imageUrl: "/assets/1000-gen/gtx-1060-3gb.jpeg",
@@ -302,6 +339,7 @@ const products: Product[] = [
   {
     id: 39,
     title: "NVIDIA GTX 1050 Ti",
+    slug: "nvidia-gtx-1050-ti",
     description: "4 Go GDDR5 - Jeu léger et eSports",
     price: 109,
     imageUrl: "/assets/1000-gen/gtx-1050-ti.jpg",
@@ -310,6 +348,7 @@ const products: Product[] = [
   {
     id: 40,
     title: "NVIDIA GTX 1050",
+    slug: "nvidia-gtx-1050",
     description: "2 Go GDDR5 - Gaming entrée de gamme",
     price: 89,
     imageUrl: "/assets/1000-gen/gtx-1050.webp",
@@ -318,6 +357,7 @@ const products: Product[] = [
   {
     id: 41,
     title: "NVIDIA GTX 1030",
+    slug: "nvidia-gtx-1030",
     description: "2 Go GDDR5 - Usage multimédia et bureautique",
     price: 69,
     imageUrl: "/assets/1000-gen/gtx-1030.jpg",

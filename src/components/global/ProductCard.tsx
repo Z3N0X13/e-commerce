@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { Heart, X } from "lucide-react";
 
 export const ProductCard: FC<ProductCardProps> = ({
+  slug,
   id,
   title,
   description,
@@ -90,7 +91,7 @@ export const ProductCard: FC<ProductCardProps> = ({
           <span className="text-2xl font-bold text-green-600">
             {price.toLocaleString("fr-FR")} €
           </span>
-          <AnimatedButton>Voir le produit</AnimatedButton>
+          <AnimatedButton onClick={() => window.location.href = `/dashboard/products/details/${slug}`}>Voir le produit</AnimatedButton>
         </div>
       </div>
     </div>
