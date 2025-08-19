@@ -46,11 +46,10 @@ export function DashboardClient({ session }: { session: Session }) {
                 Découvrez une puissance inégalée et des graphismes de nouvelle
                 génération pour transformer votre expérience de jeu.
               </p>
-              {/* WIP : Mettre le link du produit */}
               <AnimatedButton
                 className="ml-4 px-8 py-6 text-xl"
                 baseColor="bg-black"
-                onClick={() => (window.location.href = "/dashboard")}
+                onClick={() => (window.location.href = "/dashboard/products/details/nvidia-rtx-4090")}
               >
                 En savoir plus
               </AnimatedButton>

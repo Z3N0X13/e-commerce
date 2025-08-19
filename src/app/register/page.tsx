@@ -1,4 +1,4 @@
-import { register } from "@/lib/actions/register";
+import { register } from "@/lib/actions/register.actions";
 import { AuthForm } from "@/components/AuthForm";
 
 export default function RegisterPage() {

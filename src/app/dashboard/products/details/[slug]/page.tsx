@@ -1,10 +1,11 @@
 import React from "react";
+import { notFound } from "next/navigation";
 
 import { Product } from "@/types";
 import ProductDetailsClient from "@/components/ProductDetailsClient";
-import { notFound } from "next/navigation";
 
 export default async function DetailsProductsPage({params }: { params: { slug: string } }) {
+  const { slug } = await params;
   const res = await fetch("http://localhost:3000/api/products", {
     cache: "no-store",
   })
@@ -14,7 +15,7 @@ export default async function DetailsProductsPage({params }: { params: { slug: s
   }
 
   const products: Product[] = await res.json();
-  const product = products.find((product) => product.slug === params.slug);
+  const product = products.find((product) => product.slug === slug);
 
   if (!product) return notFound();
 

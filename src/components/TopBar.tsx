@@ -9,16 +9,26 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { SidebarMenu } from "./SidebarMenu";
 import { useRouter } from "next/navigation";
+import { useCartUI } from "@/app/context/cart-ui";
+import { CartOverlay } from "./CartOverlay";
+import { CheckoutOverlay } from "./CheckoutOverlay";
 
 export const TopBar = () => {
+  const { hasNewItem, newItemCount } = useCartUI();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [searchquery, setSearchquery] = useState("");
+
   const router = useRouter();
+
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && searchquery.trim()) {
-      router.push(`/dashboard/products/search?query=${encodeURIComponent(searchquery.trim())}`);
+    if (e.key === "Enter" && searchquery.trim()) {
+      router.push(
+        `/dashboard/products/search?query=${encodeURIComponent(
+          searchquery.trim()
+        )}`
+      );
       setShowSearch(false);
       setSearchquery("");
     }
@@ -96,15 +106,14 @@ export const TopBar = () => {
             })}
             style={{ minWidth: 2 }}
           />
-
-          <Button
-            variant="ghost"
-            aria-label="Open Cart"
-            className="cursor-pointer"
-            onClick={() => (window.location.href = "/dashboard/cart")}
-          >
-            <ShoppingCart size={20} /> Panier
-          </Button>
+          <div className="relative">
+            <CartButton />
+            {hasNewItem && newItemCount > 0 && (
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">
+                {newItemCount}
+              </span>
+            )}
+          </div>
         </div>
 
         <Button
@@ -145,8 +154,25 @@ export const TopBar = () => {
           </>
         )}
       </AnimatePresence>
+      <CartOverlay />
+      <CheckoutOverlay />
     </>
   );
 };
 
 export default TopBar;
+
+export const CartButton = () => {
+  const { open } = useCartUI();
+
+  return (
+    <Button
+      onClick={open}
+      variant="ghost"
+      aria-label="Open Cart"
+      className="cursor-pointer"
+    >
+      <ShoppingCart size={20} /> Panier
+    </Button>
+  );
+};

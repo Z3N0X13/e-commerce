@@ -1,8 +1,8 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Environment, Loader } from "@react-three/drei";
 import { Suspense, useRef, useState } from "react";
+import { OrbitControls, useGLTF, Environment, Loader } from "@react-three/drei";
 
 function GpuModel() {
   const { scene } = useGLTF("/models/nvidia-rtx-4090.glb");

@@ -110,8 +110,8 @@ export function AuthForm({
             </div>
 
             {type === "login" && (
-              <div className="flex justify-end text-sm text-muted-foreground -mb-2">
-                <Link href="/forgot-password" className="hover:underline">
+              <div className="flex justify-end text-sm text-muted-foreground -mb-2 transition-all">
+                <Link href="/forgot-password" className="hover:text-green-500 hover:underline">
                   Mot de passe oublié ?
                 </Link>
               </div>
@@ -132,14 +132,14 @@ export function AuthForm({
               {type === "login" ? (
                 <>
                   Pas encore de compte ?{" "}
-                  <Link href="/register" className="hover:underline">
+                  <Link href="/register" className="transition-all hover:text-green-500 hover:underline">
                     Inscrivez-vous
                   </Link>
                 </>
               ) : (
                 <>
                   Déjà un compte ?{" "}
-                  <Link href="/login" className="hover:underline">
+                  <Link href="/login" className="transition-all hover:text-green-500 hover:underline">
                     Connectez-vous
                   </Link>
                 </>

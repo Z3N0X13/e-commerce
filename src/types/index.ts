@@ -37,3 +37,31 @@ export interface CommentItemProps {
   comment: string;
   date: string;
 }
+
+export type CartItem = Product & {
+  quantity: number;
+};
+
+export type CartUIContextType = {
+  cart: CartItem[];
+  addToCart: (product: Product) => void;
+  removeFromCart: (id: number) => void;
+  updateQuantity: (id: number, qty: number) => void;
+  clearCart: () => void;
+  isOpen: boolean;
+  open: () => void;
+  close: () => void;
+  hasNewItem: boolean;
+  setHasNewItem: (value: boolean) => void;
+  newItemCount: number;
+  setNewItemCount: (value: number) => void;
+  isCheckoutOpen: boolean;
+  openCheckout: () => void;
+  closeCheckout: () => void;
+};
+
+export type CheckoutUIContextType = {
+  isOpen: boolean;
+  open: () => void;
+  close: () => void;
+}

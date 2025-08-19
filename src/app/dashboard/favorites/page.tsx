@@ -42,9 +42,9 @@ const FavoritesPage = () => {
           <p className="text-gray-600 ml-2">Aucun article dans vos favoris.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {favorites.map((product) => (
+            {favorites.map((product, idx) => (
               <ProductCard
-                key={product.id}
+                key={product.id || idx}
                 {...product}
                 onRemove={() => removeFromFavorites(product.id)}
               />

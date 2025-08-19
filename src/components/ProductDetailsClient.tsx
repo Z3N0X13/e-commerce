@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import { Badge } from "./ui/badge";
 import { Comment, Product } from "@/types";
 import { AnimatedButton } from "./global/AnimatedButton";
+import { useCartUI } from "@/app/context/cart-ui";
 
 type Props = {
   product: Product;
@@ -16,7 +17,7 @@ type Props = {
 };
 
 const ProductDetailsClient = ({ product, comments = [] }: Props) => {
-
+  const { addToCart } = useCartUI();
   return (
     <>
       <TopBar />
@@ -56,6 +57,7 @@ const ProductDetailsClient = ({ product, comments = [] }: Props) => {
             <AnimatedButton
               size={"lg"}
               disabled={!product.inStock}
+              onClick={() => addToCart(product)}
               className={`mt-4 ${
                 product.inStock ? "bg-green-600 hover:bg-green-700" : ""
               }`}
@@ -70,9 +72,7 @@ const ProductDetailsClient = ({ product, comments = [] }: Props) => {
           {comments.length === 0 ? (
             <p className="text-gray-500">Aucun commentaire pour ce produit</p>
           ) : (
-            comments.map((c, index) => (
-              <CommentItem key={index} comment={c} />
-            ))
+            comments.map((c, index) => <CommentItem key={index} comment={c} />)
           )}
         </div>
       </section>
@@ -82,7 +82,6 @@ const ProductDetailsClient = ({ product, comments = [] }: Props) => {
 };
 
 export default ProductDetailsClient;
-
 
 const CommentItem = ({ comment }: { comment: Comment }) => {
   return (
