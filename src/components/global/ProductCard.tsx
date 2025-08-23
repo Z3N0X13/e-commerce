@@ -46,7 +46,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative group">
+    <div className="bg-white dark:bg-neutral-900 rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative group">
       <div
         className={`absolute top-4 right-4 px-2.5 py-1.25 rounded-full z-10 font-semibold text-xs shadow-md
     ${inStock ? "bg-green-500 text-white" : "bg-red-500 text-white"}`}
@@ -57,7 +57,7 @@ export const ProductCard: FC<ProductCardProps> = ({
       {!onRemove && !isInFavorites && (
         <button
           onClick={handleAddToFavorites}
-          className="absolute top-4 left-4 z-10 bg-gray-100 hover:bg-red-100 text-gray-500 hover:text-red-500 rounded-full p-2 transition-colors shadow-sm"
+          className="absolute top-4 left-4 z-10 bg-gray-100 dark:bg-gray-400 hover:bg-red-100 dark:hover:bg-red-300 text-gray-500 dark:text-gray-300 hover:text-red-500 rounded-full p-2 transition-colors shadow-sm"
           aria-label="Ajouter aux favoris"
         >
           <Heart className="w-5 h-5" />
@@ -74,7 +74,7 @@ export const ProductCard: FC<ProductCardProps> = ({
         </button>
       )}
 
-      <div className="relative h-48 mb-4 bg-gradient-to-b from-neutral-100 to-neutral-200 rounded-lg overflow-hidden">
+      <div className="relative h-48 mb-4 bg-gradient-to-b from-neutral-100 to-neutral-200 dark:from-neutral-700 dark:to-neutral-800 rounded-lg overflow-hidden">
         <Image
           src={imageUrl}
           alt={title}
@@ -86,12 +86,12 @@ export const ProductCard: FC<ProductCardProps> = ({
       </div>
       <div className="space-y-3">
         <h3 className="font-bold text-xl">{title}</h3>
-        <p className="text-gray-600">{description}</p>
+        <p className="text-gray-600 dark:text-gray-400">{description}</p>
         <div className="flex items-center justify-between pt-2">
           <span className="text-2xl font-bold text-green-600">
             {price.toLocaleString("fr-FR")} €
           </span>
-          <AnimatedButton onClick={() => window.location.href = `/dashboard/products/details/${slug}`}>Voir le produit</AnimatedButton>
+          <AnimatedButton className="dark:text-white" onClick={() => window.location.href = `/dashboard/products/details/${slug}`}>Voir le produit</AnimatedButton>
         </div>
       </div>
     </div>

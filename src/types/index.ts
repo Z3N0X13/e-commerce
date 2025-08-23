@@ -26,9 +26,11 @@ export type ProductCardProps = Product & {
 };
 
 export type Comment = {
+  id?: number;
   user: string;
   rating: number;
   comment: string;
+  createdAt?: string;
 };
 
 export interface CommentItemProps {
@@ -65,3 +67,24 @@ export type CheckoutUIContextType = {
   open: () => void;
   close: () => void;
 }
+
+export type OrderStatus = "processing" | "shipped" | "delivered" | "cancelled" | "pending";
+
+export type OrderItem = {
+  title: string;
+  imageUrl: string;
+  quantity: number;
+  price: number;
+};
+
+export type Order = {
+  id: string;
+  dbId?: number;
+  date: string;
+  total: number;
+  status: OrderStatus;
+  shippedAt?: string | null;
+  deliveredAt?: string | null;
+  cancelledAt?: string | null;
+  items: OrderItem[];
+};

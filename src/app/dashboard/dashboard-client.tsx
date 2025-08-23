@@ -1,16 +1,16 @@
 "use client";
 
 import { toast } from "sonner";
+import { Star } from "lucide-react";
 import { Session } from "next-auth";
 import { Suspense, useEffect } from "react";
 
 import { items } from "@/lib/constants";
-import TopBar from "@/components/TopBar";
-import Footer from "@/components/Footer";
+import TopBar from "@/components/global/TopBar";
+import Footer from "@/components/global/Footer";
 import GpuViewer from "@/components/GpuViewer";
 import { AnimatedButton } from "@/components/global/AnimatedButton";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
-import { Star } from "lucide-react";
 
 export function DashboardClient({ session }: { session: Session }) {
   useEffect(() => {
@@ -22,7 +22,7 @@ export function DashboardClient({ session }: { session: Session }) {
   return (
     <>
       <TopBar />
-      <main className="flex flex-col items-center justify-center bg-gray-100 w-full min-h-screen pt-16">
+      <main className="flex flex-col items-center justify-center bg-gray-100 w-full min-h-screen pt-16 dark:bg-black/30">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
           <div className="rounded-xl overflow-hidden shadow-xl max-w-6xl w-full">
             <video
@@ -42,13 +42,14 @@ export function DashboardClient({ session }: { session: Session }) {
           <div className="flex items-center justify-center p-8">
             <div className="text-left">
               <h1 className="text-6xl font-bold mb-4 ml-4">RTX 40 Series</h1>
-              <p className="text-xl text-gray-600 mb-6 ml-4 max-w-2xl">
+              <p className="text-xl text-gray-600 dark:text-gray-400 mb-6 ml-4 max-w-2xl">
                 Découvrez une puissance inégalée et des graphismes de nouvelle
                 génération pour transformer votre expérience de jeu.
               </p>
               <AnimatedButton
-                className="ml-4 px-8 py-6 text-xl"
-                baseColor="bg-black"
+                className="ml-4 px-8 py-6 text-xl dark:text-white"
+                baseColor="bg-black dark:bg-green-500"
+                hoverColor="dark:hover:bg-green-600"
                 onClick={() => (window.location.href = "/dashboard/products/details/nvidia-rtx-4090")}
               >
                 En savoir plus
@@ -101,7 +102,7 @@ export function DashboardClient({ session }: { session: Session }) {
             <span className="inline-block bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold mb-4">
               En stock
             </span>
-            <ul className="text-base text-gray-600 space-y-2 mb-4">
+            <ul className="text-base text-gray-600 dark:text-gray-400 space-y-2 mb-4">
               <li>• 24 Go GDDR6X</li>
               <li>
                 • Ray tracing de 3<sup>ème</sup> génération
@@ -112,7 +113,7 @@ export function DashboardClient({ session }: { session: Session }) {
             </ul>
             <div className="flex items-end gap-4 mb-4">
               <span className="text-4xl font-bold text-green-400">1 999 €</span>
-              <span className="text-sm text-gray-400 line-through">
+              <span className="text-sm text-gray-400 line-through dark:text-gray-300">
                 2 299 €
               </span>
             </div>
@@ -120,7 +121,7 @@ export function DashboardClient({ session }: { session: Session }) {
               size={"lg"}
               baseColor="bg-green-600"
               hoverColor="hover:bg-green-700"
-              className="w-full cursor-pointer"
+              className="w-full cursor-pointer dark:text-white"
               onClick={() =>
                 (window.location.href =
                   "/dashboard/products/details/nvidia-rtx-4090")
@@ -137,7 +138,7 @@ export function DashboardClient({ session }: { session: Session }) {
                   stroke="#facc15"
                 />
               ))}
-              <span className="text-sm text-gray-400">(11 avis)</span>
+              <span className="text-sm text-gray-400 dark:text-gray-300">(11 avis)</span>
             </div>
           </div>
         </section>

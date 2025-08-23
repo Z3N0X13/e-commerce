@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { Lock, Mail, User } from "lucide-react";
+import { Lock, Mail, User, Eye, EyeOff } from "lucide-react";
 import { useActionState, useState } from "react";
 
 import {
@@ -26,6 +26,7 @@ export function AuthForm({
   type: "login" | "register";
 }) {
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [state, formAction] = useActionState<FormState, FormData>(action, {});
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -73,7 +74,7 @@ export function AuthForm({
           <CardDescription className="text-muted-foreground">
             {type === "login"
               ? "Connectez-vous pour accéder à votre espace"
-              : "Inscrivez-vous pour commencer l’expérience"}
+              : "Inscrivez-vous pour commencer l'expérience"}
           </CardDescription>
         </CardHeader>
 
@@ -106,7 +107,22 @@ export function AuthForm({
                 <Lock className="w-4 h-4" />
                 Mot de passe
               </Label>
-              <Input name="password" type="password" required />
+              <div className="relative">
+                <Input 
+                  name="password" 
+                  type={showPassword ? "text" : "password"} 
+                  required 
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </Button>
+              </div>
             </div>
 
             {type === "login" && (

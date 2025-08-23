@@ -1,18 +1,15 @@
-'use client';
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 
-import React from 'react'
+import { SettingsClient } from "./settings-client";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-import Footer from '@/components/Footer'
-import TopBar from '@/components/TopBar'
+export default async function SettingsPage() {
+  const session = await getServerSession(authOptions);
 
-const SettingsPage = () => {
-  return (
-    <>
-      <TopBar />
-      <div className="min-h-screen">SettingsPage</div>
-      <Footer />
-    </>
-  )
+  if (!session) {
+    redirect("/login");
+  }
+
+  return <SettingsClient session={session} />;
 }
-
-export default SettingsPage

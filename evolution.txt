@@ -1,7 +1,9 @@
-1 - Bouton pour ajouter au favoris (quand on clique sur le coeur, on peut cliquer pour désajouter)
+- Bouton pour ajouter au favoris (quand on clique sur le coeur, on peut cliquer pour désajouter)
 
-2 - Faire les fiches produits (ajouter des commentaires)
+- Faire les fiches produits (ajouter des commentaires)
 
-4 - Faire la fonctionnalité de stock / hors-stock dans la db
+- Faire la fonctionnalité de stock / hors-stock dans la db
 
-5 - Page order (https://dribbble.com/shots/24130403-E-commerce-My-orders-page)
+- Page order (https://dribbble.com/shots/24130403-E-commerce-My-orders-page)
+
+- Faire les pages de politique de confidentialité et de mentions légales

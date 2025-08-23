@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { CartUIProvider } from "@/app/context/cart-ui";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { SessionWrapper } from "@/components/SessionWrapper";
 
 import "./globals.css";
@@ -33,9 +34,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionWrapper>
-          <CartUIProvider>
-            {children}
-          </CartUIProvider>
+          <ThemeProvider>
+            <CartUIProvider>
+              {children}
+            </CartUIProvider>
+          </ThemeProvider>
         </SessionWrapper>
         <Toaster position="top-left" richColors />
       </body>

@@ -10,7 +10,7 @@ export const products: Product[] = [
     description: "32 Go GDDR7 – Carte graphique ultime de nouvelle génération, pour des performances inégalées en 8K et au-delà.",
     price: 2499,
     imageUrl: "/assets/5000-gen/rtx-5090.webp",
-    inStock: false,
+    inStock: true,
   },
   {
     id: 3,
@@ -19,7 +19,7 @@ export const products: Product[] = [
     description: "20 Go GDDR7 – Puissance nouvelle génération pour un gaming fluide et immersif en 4K.",
     price: 1599,
     imageUrl: "/assets/5000-gen/rtx-5080.webp",
-    inStock: false,
+    inStock: true,
   },
   {
     id: 4,
@@ -28,7 +28,7 @@ export const products: Product[] = [
     description: "16 Go GDDR7 – L'équilibre parfait entre performances de pointe et prix attractif.",
     price: 999,
     imageUrl: "/assets/5000-gen/rtx-5070-ti.jpg",
-    inStock: false,
+    inStock: true,
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ export const products: Product[] = [
     description: "16 Go GDDR7 – Profitez du gaming 4K à un prix accessible, avec ray tracing et DLSS.",
     price: 799,
     imageUrl: "/assets/5000-gen/rtx-5070.jpg",
-    inStock: false,
+    inStock: true,
   },
   {
     id: 6,
@@ -46,7 +46,7 @@ export const products: Product[] = [
     description: "12 Go GDDR7 – Conçue pour un gaming 2K nouvelle génération fluide et détaillé.",
     price: 599,
     imageUrl: "/assets/5000-gen/rtx-5060-ti.jpg",
-    inStock: false,
+    inStock: true,
   },
   {
     id: 7,
@@ -55,7 +55,7 @@ export const products: Product[] = [
     description: "12 Go GDDR7 – Gaming 1440p performant et abordable, idéal pour les joueurs exigeants.",
     price: 499,
     imageUrl: "/assets/5000-gen/rtx-5060.webp",
-    inStock: false,
+    inStock: true,
   },
   {
     id: 8,
@@ -82,7 +82,7 @@ export const products: Product[] = [
     description: "16 Go GDDR6X – Excellente carte 4K, équilibrant performance et efficacité énergétique.",
     price: 1299,
     imageUrl: "/assets/4000-gen/rtx-4080.jpg",
-    inStock: false,
+    inStock: true,
   },
   {
     id: 11,

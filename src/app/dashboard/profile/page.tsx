@@ -1,18 +1,15 @@
-'use client';
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 
-import React from 'react'
+import { ProfileClient } from "./profile-client";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-import Footer from '@/components/Footer'
-import TopBar from '@/components/TopBar'
+export default async function ProfilePage() {
+  const session = await getServerSession(authOptions);
 
-const ProfilePage = () => {
-  return (
-    <>
-      <TopBar />
-      <div className='min-h-screen'>ProfilePage</div>
-      <Footer />
-    </>
-  )
+  if (!session) {
+    redirect("/login");
+  }
+
+  return <ProfileClient session={session} />;
 }
-
-export default ProfilePage

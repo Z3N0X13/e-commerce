@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -5,13 +7,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Home, LucideMenu, LucideSearch, ShoppingCart, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { SidebarMenu } from "./SidebarMenu";
 import { useRouter } from "next/navigation";
+import { CartOverlay } from "../cart/CartOverlay";
 import { useCartUI } from "@/app/context/cart-ui";
-import { CartOverlay } from "./CartOverlay";
-import { CheckoutOverlay } from "./CheckoutOverlay";
+import { CheckoutOverlay } from "../cart/CheckoutOverlay";
+import { ThemeToggle } from "../ThemeToggle";
 
 export const TopBar = () => {
   const { hasNewItem, newItemCount } = useCartUI();
@@ -51,10 +54,10 @@ export const TopBar = () => {
     <>
       <header
         className={clsx(
-          "w-full bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-50 transition-all duration-300 overflow-x-hidden",
+          "w-full bg-background border-b border-border px-4 py-3 flex items-center justify-between sticky top-0 z-50 transition-all duration-300 overflow-x-hidden",
           {
-            "backdrop-blur-md bg-white/50 border-gray-200": scrolled,
-            "bg-white": !scrolled,
+            "backdrop-blur-md bg-background/50 border-border": scrolled,
+            "bg-background": !scrolled,
           }
         )}
       >
@@ -100,10 +103,13 @@ export const TopBar = () => {
             onBlur={() => setShowSearch(false)}
           />
           <div
-            className={clsx("h-8 w-[2px] -ml-8 bg-gray-300 rounded-full", {
-              "ml-4": showSearch,
-              "-ml-8": !showSearch,
-            })}
+            className={clsx(
+              "h-8 w-[2px] -ml-8 bg-gray-300 dark:bg-gray-600 rounded-full",
+              {
+                "ml-4": showSearch,
+                "-ml-8": !showSearch,
+              }
+            )}
             style={{ minWidth: 2 }}
           />
           <div className="relative">
@@ -114,6 +120,7 @@ export const TopBar = () => {
               </span>
             )}
           </div>
+          <ThemeToggle />
         </div>
 
         <Button
@@ -128,7 +135,7 @@ export const TopBar = () => {
         {menuOpen && (
           <>
             <motion.div
-              className="fixed inset-0 bg-black/30 z-40"
+              className="fixed inset-0 bg-black/30 dark:bg-black/50 z-40"
               onClick={() => setMenuOpen(false)}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -136,7 +143,7 @@ export const TopBar = () => {
             />
 
             <motion.aside
-              className="fixed top-0 right-0 h-full w-64 bg-white z-50 shadow-lg px-4 py-4 flex flex-col"
+              className="fixed top-0 right-0 h-full w-64 bg-background border-l border-border z-50 shadow-lg px-4 py-4 flex flex-col"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}

@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { toast } from "sonner";
 import React, { useState } from "react";
 
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { useCartUI } from "@/app/context/cart-ui";
 
 const CheckoutForm = () => {
@@ -26,7 +27,8 @@ const CheckoutForm = () => {
     "card" | "paypal" | "shop"
   >("card");
 
-  const { cart, closeCheckout } = useCartUI();
+  const { cart, closeCheckout, clearCart } = useCartUI();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isFormValid = () => {
     const cvcValid = /^[0-9]{3,4}$/.test(cvc);
@@ -54,15 +56,71 @@ const CheckoutForm = () => {
     return acc + item.price * item.quantity;
   }, 0);
 
-  const shippingPrice = 5;
+  const shippingPrice = totalPrice > 0 ? 5 : 0;
+
+  const handleSubmit = async () => {
+    try {
+      setIsSubmitting(true);
+      const payload = {
+        email,
+        firstName,
+        lastName,
+        address: adress,
+        apartment: apartment || undefined,
+        city,
+        postalCode,
+        country,
+        paymentMethod,
+        nameOnCard,
+        cardNumber,
+        expiry,
+        cvc,
+        rememberMe,
+        useShippingAsBilling,
+        shippingPrice,
+        subtotal: totalPrice,
+        total: totalPrice + shippingPrice,
+        items: cart.map((item) => ({
+          productId: item.id,
+          title: item.title,
+          imageUrl: item.imageUrl,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+      };
+
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(
+          data.error || "Erreur lors de l'enregistrement de la commande"
+        );
+      }
+
+      toast.success("Commande confirmée ! Vous pouvez trouver l'avancement de votre commande dans l'onglet Mes Commandes");
+      clearCart();
+      closeCheckout();
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Une erreur est survenue";
+      toast.error(message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-10 px-6 overflow-y-auto divide-x-2 divide-gray-300">
+      <div className="grid grid-cols-2 gap-10 px-6 overflow-y-auto divide-x-2 divide-gray-300 dark:divide-gray-600">
         <section className="flex flex-col space-y-6 pr-10">
-          <form className="space-y-8 bg-white p-6 rounded-xl shadow-lg">
+          <form className="space-y-8 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-900">Contact</h3>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Contact</h3>
               <Input
                 type="email"
                 value={email}
@@ -71,7 +129,7 @@ const CheckoutForm = () => {
               />
             </div>
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-900">Livraison</h3>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Livraison</h3>
               <Input
                 type="text"
                 value={country}
@@ -120,16 +178,16 @@ const CheckoutForm = () => {
                 />
               </div>
             </div>
-            <div className="flex justify-center items-start p-6 bg-gray-100 mt-2 rounded-2xl">
-              <div className="bg-white rounded-xl shadow-lg p-8 w-full">
-                <h3 className="text-xl font-semibold text-gray-900">
+            <div className="flex justify-center items-start p-6 bg-gray-100 dark:bg-gray-700 mt-2 rounded-2xl">
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 w-full">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                   Paiement
                 </h3>
-                <p className="text-gray-500 mb-6 text-sm">
+                <p className="text-gray-500 dark:text-gray-400 mb-6 text-sm">
                   Toutes les transactions sont sécurisées et cryptées.
                 </p>
 
-                <div className="border rounded-lg overflow-hidden">
+                <div className="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
                   <label
                     className={`flex items-center p-4 cursor-pointer ${
                       paymentMethod === "card"
@@ -145,7 +203,7 @@ const CheckoutForm = () => {
                       onChange={() => setPaymentMethod("card")}
                       className="mr-4"
                     />
-                    <span className="font-semibold text-gray-900">
+                    <span className="font-semibold text-gray-900 dark:text-white">
                       Carte de crédit
                     </span>
                     <div className="ml-auto flex space-x-2">
@@ -184,7 +242,7 @@ const CheckoutForm = () => {
                   </label>
 
                   {paymentMethod === "card" && (
-                    <div className="p-4 border-t border-gray-200 space-y-3">
+                    <div className="p-4 border-t border-gray-200 dark:border-gray-600 space-y-3">
                       <Input
                         type="text"
                         placeholder="Numéro de carte"
@@ -233,7 +291,7 @@ const CheckoutForm = () => {
                           }
                           className="mr-2"
                         />
-                        <span className="text-gray-700">
+                        <span className="text-gray-700 dark:text-gray-300">
                           Use shipping adress as billing adress
                         </span>
                       </label>
@@ -250,7 +308,7 @@ const CheckoutForm = () => {
                 onChange={() => setRememberMe(!rememberMe)}
                 className="mt-3 h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
               />
-              <label htmlFor="remember" className="ml-3 text-sm text-gray-700">
+              <label htmlFor="remember" className="ml-3 text-sm text-gray-700 dark:text-gray-300">
                 <span className="font-semibold">Se souvenir de moi</span>
                 <br />
                 Enregistrer mes informations pour un paiement plus rapide
@@ -260,18 +318,18 @@ const CheckoutForm = () => {
         </section>
 
         <aside className="relative">
-          <div className="sticky top-6 bg-white rounded-xl shadow-md p-6">
-            <h3 className="text-xl font-semibold mb-8 text-gray-900">
+          <div className="sticky top-6 bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+            <h3 className="text-xl font-semibold mb-8 text-gray-900 dark:text-white">
               Résumé de la commande
             </h3>
             <section className="flex flex-col">
               {cart.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between gap-6 border-b pb-4 mb-4"
+                  className="flex items-center justify-between gap-6 border-b border-gray-200 dark:border-gray-700 pb-4 mb-4"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-20 h-20 rounded-lg overflow-hidden border shadow-sm">
+                    <div className="w-20 h-20 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600 shadow-sm">
                       <Image
                         src={item.imageUrl}
                         alt={item.title}
@@ -281,16 +339,16 @@ const CheckoutForm = () => {
                       />
                     </div>
                     <div className="flex flex-col justify-between">
-                      <span className="font-semibold text-gray-900">
+                      <span className="font-semibold text-gray-900 dark:text-white">
                         {item.title}
                       </span>
-                      <label className="text-sm text-gray-500 mt-1">
+                      <label className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                         Quantité :
                         <input
                           type="number"
                           min={1}
                           value={item.quantity}
-                          className="ml-2 w-16 border border-gray-300 rounded px-2 py-1 text-sm"
+                          className="ml-2 w-16 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                           disabled
                         />
                       </label>
@@ -298,7 +356,7 @@ const CheckoutForm = () => {
                   </div>
 
                   <div className="text-right">
-                    <p className="text-sm font-semibold text-gray-700">
+                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                       Total :{" "}
                       {(item.price * item.quantity).toLocaleString("fr-FR")} €
                     </p>
@@ -307,27 +365,27 @@ const CheckoutForm = () => {
               ))}
 
               <div className="flex justify-between items-center mt-4 pt-4">
-                <span className="text-sm font-semibold text-gray-900">
+                <span className="text-sm font-semibold text-gray-900 dark:text-white">
                   Sous-total :
                 </span>
-                <span className="text-sm font-semibold text-gray-900">
+                <span className="text-sm font-semibold text-gray-900 dark:text-white">
                   {totalPrice.toLocaleString("fr-FR")} €
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm font-semibold text-gray-900">
+                <span className="text-sm font-semibold text-gray-900 dark:text-white">
                   Prix expédition :
                 </span>
-                <span className="text-sm font-semibold text-gray-900">
+                <span className="text-sm font-semibold text-gray-900 dark:text-white">
                   {shippingPrice.toLocaleString("fr-FR")} €
                 </span>
               </div>
-              <div className="border-t mt-4" />
+              <div className="border-t border-gray-200 dark:border-gray-700 mt-4" />
               <div className="flex justify-between items-center mt-4 pt-4">
-                <span className="text-lg font-semibold text-gray-900">
+                <span className="text-lg font-semibold text-gray-900 dark:text-white">
                   Total :
                 </span>
-                <span className="text-lg font-semibold text-gray-900">
+                <span className="text-lg font-semibold text-gray-900 dark:text-white">
                   {(totalPrice + shippingPrice).toLocaleString("fr-FR")} €
                 </span>
               </div>
@@ -337,11 +395,23 @@ const CheckoutForm = () => {
       </div>
       <div className="mt-4 flex justify-center">
         <Button
-          className="mx-auto w-1/2 mt-4"
-          onClick={() => closeCheckout()}
-          disabled={!isFormValid()}
+          type="button"
+          className="mx-auto w-full sm:w-2/3 md:w-1/2 h-12 mt-4 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-purple-500"
+          onClick={handleSubmit}
+          disabled={!isFormValid() || isSubmitting}
+          aria-disabled={!isFormValid() || isSubmitting}
+          aria-busy={isSubmitting}
         >
-          Confirmer la commande
+          {isSubmitting ? (
+            "Traitement…"
+          ) : (
+            <>
+              Confirmer la commande <span>—</span>
+              <span className="font-bold ml-0.5">
+                {(totalPrice + shippingPrice).toLocaleString("fr-FR")} €
+              </span>
+            </>
+          )}
         </Button>
       </div>
     </>

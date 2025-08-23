@@ -2,11 +2,11 @@ import React from "react";
 import { notFound } from "next/navigation";
 
 import { Product } from "@/types";
-import ProductDetailsClient from "@/components/ProductDetailsClient";
+import ProductDetailsClient from "./product-details-client";
 
 export default async function DetailsProductsPage({params }: { params: { slug: string } }) {
   const { slug } = await params;
-  const res = await fetch("http://localhost:3000/api/products", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/products`, {
     cache: "no-store",
   })
 
@@ -19,13 +19,7 @@ export default async function DetailsProductsPage({params }: { params: { slug: s
 
   if (!product) return notFound();
 
-  const sampleComments = [
-  { user: "Alice", rating: 5, comment: "Excellente carte graphique !" },
-  { user: "Bob", rating: 4, comment: "Très bonne mais un peu chère." },
-  { user: "Claire", rating: 3, comment: "Correcte, mais chauffe beaucoup." },
-];
-
   return (
-    <ProductDetailsClient product={product} comments={sampleComments} />
+    <ProductDetailsClient product={product} />
   );
 }

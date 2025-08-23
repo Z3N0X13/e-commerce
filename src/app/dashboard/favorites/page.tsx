@@ -4,8 +4,8 @@ import { toast } from "sonner";
 import React, { useEffect, useState } from "react";
 
 import { Product } from "@/types";
-import Footer from "@/components/Footer";
-import TopBar from "@/components/TopBar";
+import Footer from "@/components/global/Footer";
+import TopBar from "@/components/global/TopBar";
 import { ProductCard } from "@/components/global/ProductCard";
 
 const FavoritesPage = () => {
@@ -39,7 +39,7 @@ const FavoritesPage = () => {
             </p>
           </div>
         {favorites.length === 0 ? (
-          <p className="text-gray-600 ml-2">Aucun article dans vos favoris.</p>
+          <p className="text-gray-600 dark:text-gray-400 ml-2">Aucun article dans vos favoris.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {favorites.map((product, idx) => (
