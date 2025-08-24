@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Session } from "next-auth";
+import { useState, useEffect } from "react";
 import { Palette, Monitor, Moon, Sun, User } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
+
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { useThemeContext } from "@/components/ThemeProvider";
+import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
+import { useThemeContext } from "@/components/theme/ThemeProvider";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface AppearanceSettingsProps {
   session: Session;

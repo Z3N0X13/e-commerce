@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useCartUI } from "@/app/context/cart-ui";
+import { usePrice } from "@/hooks/use-price";
 
 const CheckoutForm = () => {
   const [cvc, setCvc] = useState("");
@@ -27,6 +28,7 @@ const CheckoutForm = () => {
     "card" | "paypal" | "shop"
   >("card");
 
+  const { formatPrice } = usePrice();
   const { cart, closeCheckout, clearCart } = useCartUI();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -102,7 +104,9 @@ const CheckoutForm = () => {
         );
       }
 
-      toast.success("Commande confirmée ! Vous pouvez trouver l'avancement de votre commande dans l'onglet Mes Commandes");
+      toast.success(
+        "Commande confirmée ! Vous pouvez trouver l'avancement de votre commande dans l'onglet Mes Commandes"
+      );
       clearCart();
       closeCheckout();
     } catch (err: unknown) {
@@ -116,11 +120,13 @@ const CheckoutForm = () => {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-10 px-6 overflow-y-auto divide-x-2 divide-gray-300 dark:divide-gray-600">
+      <div className="grid grid-cols-2 gap-10 px-6 overflow-y-auto divide-x-2 divide-gray-300 dark:divide-neutral-700 cart-scrollbar">
         <section className="flex flex-col space-y-6 pr-10">
-          <form className="space-y-8 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+          <form className="space-y-8 bg-white dark:bg-neutral-800 p-6 rounded-xl shadow-lg">
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Contact</h3>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                Contact
+              </h3>
               <Input
                 type="email"
                 value={email}
@@ -129,7 +135,9 @@ const CheckoutForm = () => {
               />
             </div>
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Livraison</h3>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                Livraison
+              </h3>
               <Input
                 type="text"
                 value={country}
@@ -178,8 +186,8 @@ const CheckoutForm = () => {
                 />
               </div>
             </div>
-            <div className="flex justify-center items-start p-6 bg-gray-100 dark:bg-gray-700 mt-2 rounded-2xl">
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 w-full">
+            <div className="flex justify-center items-start p-6 bg-gray-100 dark:bg-neutral-700 mt-2 rounded-2xl">
+              <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8 w-full">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                   Paiement
                 </h3>
@@ -187,11 +195,11 @@ const CheckoutForm = () => {
                   Toutes les transactions sont sécurisées et cryptées.
                 </p>
 
-                <div className="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
+                <div className="border border-gray-200 dark:border-neutral-700 rounded-lg overflow-hidden">
                   <label
                     className={`flex items-center p-4 cursor-pointer ${
                       paymentMethod === "card"
-                        ? "bg-gray-100 dark:bg-gray-700"
+                        ? "bg-gray-100 dark:bg-neutral-700"
                         : ""
                     }`}
                   >
@@ -235,14 +243,14 @@ const CheckoutForm = () => {
                         width={24}
                         height={24}
                       />
-                      <span className="px-2 py-0.5 text-gray-600 dark:text-gray-300 text-sm rounded bg-gray-200 dark:bg-gray-700">
+                      <span className="px-2 py-0.5 text-gray-600 dark:text-gray-300 text-sm rounded bg-gray-200 dark:bg-neutral-500">
                         +4
                       </span>
                     </div>
                   </label>
 
                   {paymentMethod === "card" && (
-                    <div className="p-4 border-t border-gray-200 dark:border-gray-600 space-y-3">
+                    <div className="p-4 border-t border-gray-200 dark:border-neutral-700 space-y-3">
                       <Input
                         type="text"
                         placeholder="Numéro de carte"
@@ -308,7 +316,10 @@ const CheckoutForm = () => {
                 onChange={() => setRememberMe(!rememberMe)}
                 className="mt-3 h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
               />
-              <label htmlFor="remember" className="ml-3 text-sm text-gray-700 dark:text-gray-300">
+              <label
+                htmlFor="remember"
+                className="ml-3 text-sm text-gray-700 dark:text-gray-300"
+              >
                 <span className="font-semibold">Se souvenir de moi</span>
                 <br />
                 Enregistrer mes informations pour un paiement plus rapide
@@ -318,7 +329,7 @@ const CheckoutForm = () => {
         </section>
 
         <aside className="relative">
-          <div className="sticky top-6 bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+          <div className="sticky top-6 bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6">
             <h3 className="text-xl font-semibold mb-8 text-gray-900 dark:text-white">
               Résumé de la commande
             </h3>
@@ -326,10 +337,10 @@ const CheckoutForm = () => {
               {cart.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between gap-6 border-b border-gray-200 dark:border-gray-700 pb-4 mb-4"
+                  className="flex items-center justify-between gap-6 border-b border-gray-200 dark:border-neutral-700 pb-4 mb-4"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-20 h-20 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600 shadow-sm">
+                    <div className="w-20 h-20 rounded-lg overflow-hidden border border-gray-200 dark:border-neutral-600 shadow-sm">
                       <Image
                         src={item.imageUrl}
                         alt={item.title}
@@ -348,7 +359,7 @@ const CheckoutForm = () => {
                           type="number"
                           min={1}
                           value={item.quantity}
-                          className="ml-2 w-16 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                          className="ml-2 w-16 border border-gray-300 dark:border-neutral-600 rounded px-2 py-1 text-sm bg-white dark:bg-neutral-700 text-gray-900 dark:text-white"
                           disabled
                         />
                       </label>
@@ -357,8 +368,7 @@ const CheckoutForm = () => {
 
                   <div className="text-right">
                     <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                      Total :{" "}
-                      {(item.price * item.quantity).toLocaleString("fr-FR")} €
+                      Total : {formatPrice(item.price * item.quantity)}
                     </p>
                   </div>
                 </div>
@@ -369,7 +379,7 @@ const CheckoutForm = () => {
                   Sous-total :
                 </span>
                 <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                  {totalPrice.toLocaleString("fr-FR")} €
+                  {formatPrice(totalPrice)}
                 </span>
               </div>
               <div className="flex justify-between items-center">
@@ -377,16 +387,16 @@ const CheckoutForm = () => {
                   Prix expédition :
                 </span>
                 <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                  {shippingPrice.toLocaleString("fr-FR")} €
+                  {formatPrice(shippingPrice)}
                 </span>
               </div>
-              <div className="border-t border-gray-200 dark:border-gray-700 mt-4" />
+              <div className="border-t border-gray-200 dark:border-neutral-700 mt-4" />
               <div className="flex justify-between items-center mt-4 pt-4">
                 <span className="text-lg font-semibold text-gray-900 dark:text-white">
                   Total :
                 </span>
                 <span className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {(totalPrice + shippingPrice).toLocaleString("fr-FR")} €
+                  {formatPrice(totalPrice + shippingPrice)}
                 </span>
               </div>
             </section>
@@ -408,7 +418,7 @@ const CheckoutForm = () => {
             <>
               Confirmer la commande <span>—</span>
               <span className="font-bold ml-0.5">
-                {(totalPrice + shippingPrice).toLocaleString("fr-FR")} €
+                {formatPrice(totalPrice + shippingPrice)}
               </span>
             </>
           )}

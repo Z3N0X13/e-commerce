@@ -13,8 +13,8 @@ import { SidebarMenu } from "./SidebarMenu";
 import { useRouter } from "next/navigation";
 import { CartOverlay } from "../cart/CartOverlay";
 import { useCartUI } from "@/app/context/cart-ui";
+import { ThemeToggle } from "../theme/ThemeToggle";
 import { CheckoutOverlay } from "../cart/CheckoutOverlay";
-import { ThemeToggle } from "../ThemeToggle";
 
 export const TopBar = () => {
   const { hasNewItem, newItemCount } = useCartUI();
@@ -104,7 +104,7 @@ export const TopBar = () => {
           />
           <div
             className={clsx(
-              "h-8 w-[2px] -ml-8 bg-gray-300 dark:bg-gray-600 rounded-full",
+              "h-8 w-[2px] -ml-8 bg-gray-300 dark:bg-neutral-600 rounded-full",
               {
                 "ml-4": showSearch,
                 "-ml-8": !showSearch,
@@ -115,7 +115,7 @@ export const TopBar = () => {
           <div className="relative">
             <CartButton />
             {hasNewItem && newItemCount > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 dark:border-0 flex items-center justify-center text-white text-xs font-bold">
                 {newItemCount}
               </span>
             )}

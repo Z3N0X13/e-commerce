@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { Lock, Mail, User, Eye, EyeOff } from "lucide-react";
 import { useActionState, useState } from "react";
+import { Lock, Mail, User, Eye, EyeOff } from "lucide-react";
 
 import {
   Card,

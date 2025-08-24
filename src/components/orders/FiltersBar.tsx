@@ -18,7 +18,7 @@ export default function FiltersBar({ status, setStatus, search, setSearch }: Pro
       <div className="flex items-center gap-2">
         <button
           onClick={() => setStatus("")}
-          className={`px-3 py-1.5 rounded-full text-sm border ${status === "" ? "bg-neutral-900 text-white border-neutral-900" : "hover:bg-gray-50"}`}
+          className={`px-3 py-1.5 rounded-full text-sm border ${status === "" ? "bg-neutral-900 dark:bg-gray-50 text-white dark:text-black border-neutral-900" : "hover:bg-gray-50 dark:hover:bg-gray-200 dark:hover:text-black"}`}
         >
           Tous
         </button>
@@ -32,7 +32,7 @@ export default function FiltersBar({ status, setStatus, search, setSearch }: Pro
           <button
             key={s.key}
             onClick={() => setStatus(s.key)}
-            className={`px-3 py-1.5 rounded-full text-sm border ${status === s.key ? "bg-neutral-900 text-white border-neutral-900" : "hover:bg-gray-50"}`}
+            className={`px-3 py-1.5 rounded-full text-sm border ${status === s.key ? "bg-neutral-900 dark:bg-gray-50 text-white dark:text-black border-neutral-900" : "hover:bg-gray-50 dark:hover:bg-gray-200 dark:hover:text-black"}`}
           >
             {s.label}
           </button>

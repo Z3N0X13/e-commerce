@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { NextRequest, NextResponse } from "next/server";
+
 import { prisma } from "@/lib/prisma";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function DELETE(
   req: NextRequest,
@@ -17,7 +18,10 @@ export async function DELETE(
     const commentId = parseInt(resolvedParams.id);
 
     if (Number.isNaN(commentId)) {
-      return NextResponse.json({ error: "Invalid comment ID" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid comment ID" },
+        { status: 400 }
+      );
     }
 
     const comment = await prisma.comment.findUnique({
@@ -30,7 +34,10 @@ export async function DELETE(
 
     const currentUser = session.user.name || session.user.email;
     if (comment.user !== currentUser) {
-      return NextResponse.json({ error: "You can only delete your own comments" }, { status: 403 });
+      return NextResponse.json(
+        { error: "You can only delete your own comments" },
+        { status: 403 }
+      );
     }
 
     await prisma.comment.delete({
@@ -39,6 +46,9 @@ export async function DELETE(
 
     return NextResponse.json({ message: "Comment deleted successfully" });
   } catch (error) {
-    return NextResponse.json({ error: "Server error: " + (error as Error).message }, { status: 500 });
+    return NextResponse.json(
+      { error: "Server error: " + (error as Error).message },
+      { status: 500 }
+    );
   }
 }

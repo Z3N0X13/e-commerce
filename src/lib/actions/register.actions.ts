@@ -1,8 +1,9 @@
 "use server";
 
-import { prisma } from "../prisma";
 import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
+
+import { prisma } from "../prisma";
 import { FormState } from "@/types";
 
 export async function register(_prevState: FormState, formData: FormData): Promise<FormState> {

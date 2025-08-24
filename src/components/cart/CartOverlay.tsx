@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { Button } from "../ui/button";
 import { useCartUI } from "@/app/context/cart-ui";
+import { usePrice } from "@/hooks/use-price";
 
 export const CartOverlay = () => {
   const {
@@ -20,6 +21,7 @@ export const CartOverlay = () => {
     openCheckout,
   } = useCartUI();
   const router = useRouter();
+  const { formatPrice } = usePrice();
 
   useEffect(() => {
     if (isOpen) {
@@ -57,7 +59,7 @@ export const CartOverlay = () => {
           />
 
           <motion.div
-            className="fixed inset-x-16 inset-y-8 bg-white dark:bg-gray-900 z-55 rounded-xl shadow-xl p-6 overflow-y-auto flex flex-col"
+            className="fixed inset-x-16 inset-y-8 bg-white dark:bg-neutral-900 z-55 rounded-xl shadow-xl p-6 overflow-y-auto flex flex-col"
             initial={{ y: "-20%", opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "-20%", opacity: 0 }}
@@ -86,7 +88,7 @@ export const CartOverlay = () => {
                     close();
                     router.push("/dashboard/products/search");
                   }}
-                  className="mt-6 px-6 py-2 text-white font-semibold bg-black hover:bg-gray-800"
+                  className="mt-6 px-6 py-2 text-white font-semibold bg-black hover:bg-neutral-800"
                 >
                   Retourner à la boutique
                 </Button>
@@ -96,7 +98,7 @@ export const CartOverlay = () => {
                 {cart.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center justify-between gap-4 border-b border-gray-200 dark:border-gray-700 pb-2"
+                    className="flex items-center justify-between gap-4 border-b border-gray-200 dark:border-neutral-700 pb-2"
                   >
                     <div className="flex flex-col">
                       <span className="font-semibold">{item.title}</span>
@@ -109,14 +111,13 @@ export const CartOverlay = () => {
                           onChange={(e) =>
                             updateQuantity(item.id, parseInt(e.target.value))
                           }
-                          className="ml-2 w-16 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                          className="ml-2 w-16 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm bg-white dark:bg-neutral-800 text-gray-900 dark:text-white"
                         />
                       </span>
                     </div>
                     <div className="flex flex-row items-center">
                       <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mr-8">
-                        Total :{" "}
-                        {(item.price * item.quantity).toLocaleString("fr-FR")} €
+                        Total : {formatPrice(item.price * item.quantity)}
                       </p>
                       <Button
                         variant={"destructive"}
@@ -133,8 +134,8 @@ export const CartOverlay = () => {
 
             {cart.length > 0 && (
               <>
-                <div className="w-full px-4 py-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
-                  <div className="flex flex-col items-start bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 px-4 py-3">
+                <div className="w-full px-4 py-4 border-t border-gray-200 dark:border-neutral-700 flex justify-between items-center">
+                  <div className="flex flex-col items-start bg-gray-50 dark:bg-neutral-800 rounded-md border border-gray-200 dark:border-neutral-700 px-4 py-3">
                     <span className="text-base font-semibold text-gray-800 dark:text-white">
                       Total :
                     </span>
@@ -144,12 +145,12 @@ export const CartOverlay = () => {
                   </div>
 
                   <span className="text-xl font-bold text-gray-900 dark:text-white">
-                    {totalPrice.toLocaleString("fr-FR")} €
+                    {formatPrice(totalPrice)}
                   </span>
                 </div>
                 <div className="mt-4 flex justify-center">
                   <Button
-                  type="button"
+                    type="button"
                     onClick={() => {
                       close();
                       openCheckout();

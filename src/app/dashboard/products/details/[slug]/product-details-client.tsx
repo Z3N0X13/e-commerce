@@ -58,7 +58,7 @@ const ProductDetailsClient = ({ product }: Props) => {
           {product.title}
         </h1>
 
-        <div className="flex flex-col lg:flex-row gap-10 bg-white shadow-lg rounded-2xl p-6 mt-16">
+        <div className="flex flex-col lg:flex-row gap-10 bg-white dark:bg-neutral-900 shadow-lg rounded-2xl p-6 mt-16">
           <div className="flex-1 flex justify-center items-center">
             <Image
               src={product.imageUrl}
@@ -73,14 +73,14 @@ const ProductDetailsClient = ({ product }: Props) => {
             <Badge
               className={`w-fit px-3 py-1 text-sm font-medium rounded-full ${
                 product.inStock
-                  ? "bg-green-100 text-green-800"
-                  : "bg-red-100 text-red-800"
+                  ? "bg-green-100 dark:bg-green-500 text-green-800 dark:text-white"
+                  : "bg-red-100 dark:bg-red-500 text-red-800 dark:text-white"
               }`}
             >
               {product.inStock ? "En stock" : "Hors stock"}
             </Badge>
 
-            <p className="text-lg text-gray-600">{product.description}</p>
+            <p className="text-lg text-gray-600 dark:text-gray-400">{product.description}</p>
 
             <p className="text-3xl font-semibold text-green-600">
               {product.price.toLocaleString("fr-FR")} €
@@ -91,7 +91,7 @@ const ProductDetailsClient = ({ product }: Props) => {
               disabled={!product.inStock}
               onClick={() => addToCart(product)}
               className={`mt-4 ${
-                product.inStock ? "bg-green-600 hover:bg-green-700" : ""
+                product.inStock ? "bg-green-600 hover:bg-green-700 dark:text-white" : ""
               }`}
             >
               {product.inStock ? "Ajouter au panier" : "Produit indisponible"}
@@ -111,16 +111,16 @@ const ProductDetailsClient = ({ product }: Props) => {
             {loading ? (
               <div className="text-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
-                <p className="text-gray-500 mt-2">
+                <p className="text-gray-500 dark:text-gray-400 mt-2">
                   Chargement des commentaires...
                 </p>
               </div>
             ) : comments.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-gray-500">
+                <p className="text-gray-500 dark:text-gray-300">
                   Aucun commentaire pour ce produit
                 </p>
-                <p className="text-sm text-gray-400 mt-1">
+                <p className="text-sm text-gray-400 dark:text-gray-200 mt-1">
                   Soyez le premier à donner votre avis !
                 </p>
               </div>
@@ -187,7 +187,7 @@ const CommentItem = ({
   };
 
   return (
-    <div className="bg-gray-50 border border-gray-200 p-4 rounded-xl shadow-sm relative">
+    <div className="bg-gray-50 dark:bg-neutral-800 border border-gray-200 dark:border-0 p-4 rounded-xl shadow-sm relative">
       <div className="flex justify-between items-center mb-2">
         <p className="font-semibold text-sm">{comment.user}</p>
         <div className="flex items-center gap-1">
@@ -201,10 +201,10 @@ const CommentItem = ({
           ))}
         </div>
       </div>
-      <p className="text-sm text-gray-700">{comment.comment}</p>
+      <p className="text-sm text-gray-700 dark:text-gray-300">{comment.comment}</p>
       <div className="flex justify-between items-center mt-2">
         {comment.createdAt && (
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             {new Date(comment.createdAt).toLocaleDateString("fr-FR")}
           </p>
         )}

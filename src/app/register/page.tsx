@@ -1,5 +1,5 @@
-import { register } from "@/lib/actions/register.actions";
 import { AuthForm } from "@/components/form/AuthForm";
+import { register } from "@/lib/actions/register.actions";
 
 export default function RegisterPage() {
   return (

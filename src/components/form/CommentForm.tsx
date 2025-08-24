@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import { toast } from "sonner";
 import { Star } from "lucide-react";
+import React, { useState } from "react";
+import { useSession } from "next-auth/react";
+
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import { useSession } from "next-auth/react";
-import { toast } from "sonner";
 
 interface CommentFormProps {
   productId: number;
@@ -69,8 +70,8 @@ const CommentForm = ({ productId, onCommentAdded }: CommentFormProps) => {
 
   if (!session) {
     return (
-      <div className="bg-gray-50 border border-gray-200 p-4 rounded-xl">
-        <p className="text-gray-600 text-center">
+      <div className="bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-0 p-4 rounded-xl">
+        <p className="text-gray-600 dark:text-gray-400 text-center">
           Connectez-vous pour ajouter un commentaire
         </p>
       </div>
@@ -78,11 +79,11 @@ const CommentForm = ({ productId, onCommentAdded }: CommentFormProps) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white border border-gray-200 p-6 rounded-xl shadow-sm">
+    <form onSubmit={handleSubmit} className="bg-white dark:bg-neutral-900 border border-gray-200 dark:border-0 p-6 rounded-xl shadow-sm">
       <h3 className="text-lg font-semibold mb-4">Ajouter un commentaire</h3>
       
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Note
         </label>
         <div className="flex gap-1">
@@ -102,13 +103,13 @@ const CommentForm = ({ productId, onCommentAdded }: CommentFormProps) => {
             </button>
           ))}
         </div>
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
           {rating > 0 ? `${rating}/5 étoiles` : "Sélectionnez une note"}
         </p>
       </div>
 
       <div className="mb-4">
-        <label htmlFor="comment" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="comment" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Votre commentaire
         </label>
         <Textarea
@@ -120,7 +121,7 @@ const CommentForm = ({ productId, onCommentAdded }: CommentFormProps) => {
           className="resize-none"
           maxLength={500}
         />
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
           {comment.length}/500 caractères
         </p>
       </div>

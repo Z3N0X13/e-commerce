@@ -1,17 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 
-import StatusBadge from "./StatusBadge";
 import type { Order } from "@/types";
+import StatusBadge from "./StatusBadge";
+import { usePrice } from "@/hooks/use-price";
 
 export default function OrderCard({ order, onDetails, onInvoice }: { order: Order; onDetails?: (order: Order) => void; onInvoice?: (order: Order) => void; }) {
+  const { formatPrice } = usePrice();
   const first = order.items[0];
   const otherCount = Math.max(0, order.items.length - 1);
 
   return (
-    <article className="bg-white dark:bg-neutral-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-500 overflow-hidden">
+    <article className="bg-white dark:bg-neutral-900 rounded-xl shadow-sm border border-gray-200 dark:border-neutral-800 overflow-hidden">
       <div className="flex flex-col md:flex-row md:items-center gap-4 p-5">
         <div className="flex items-center gap-4 flex-1">
           <div className="w-16 h-16 rounded-lg overflow-hidden border bg-gray-50 dark:bg-neutral-700">
@@ -36,7 +38,7 @@ export default function OrderCard({ order, onDetails, onInvoice }: { order: Orde
         <div className="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto">
           <div className="text-right">
             <p className="text-xs text-gray-500 dark:text-gray-400">Total</p>
-            <p className="text-lg font-semibold text-gray-900 dark:text-white">{order.total.toLocaleString("fr-FR")} €</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{formatPrice(order.total)}</p>
           </div>
           <div className="flex items-center gap-2">
             <button className="px-3 py-2 text-sm rounded-lg border hover:bg-gray-50 dark:hover:bg-neutral-800" onClick={() => onDetails?.(order)}>Détails</button>

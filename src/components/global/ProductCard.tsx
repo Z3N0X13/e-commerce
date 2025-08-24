@@ -1,12 +1,13 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
 import Image from "next/image";
-
-import { Product, ProductCardProps } from "@/types";
-import { AnimatedButton } from "@/components/global/AnimatedButton";
 import { toast } from "sonner";
 import { Heart, X } from "lucide-react";
+import { FC, useEffect, useState } from "react";
+
+import { usePrice } from "@/hooks/use-price";
+import { Product, ProductCardProps } from "@/types";
+import { AnimatedButton } from "@/components/global/AnimatedButton";
 
 export const ProductCard: FC<ProductCardProps> = ({
   slug,
@@ -18,6 +19,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   inStock = true,
   onRemove,
 }) => {
+  const { formatPrice } = usePrice();
   const [isInFavorites, setIsInFavorites] = useState(false);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export const ProductCard: FC<ProductCardProps> = ({
 
     const isAlreadyInFavorites = favorites.some((p: Product) => p.id === id);
     if (!isAlreadyInFavorites) {
-      favorites.push({ id, title, description, price, imageUrl, inStock });
+      favorites.push({ id, title, description, price, imageUrl, inStock, slug });
       localStorage.setItem("favorites", JSON.stringify(favorites));
       setIsInFavorites(true);
 
@@ -89,7 +91,7 @@ export const ProductCard: FC<ProductCardProps> = ({
         <p className="text-gray-600 dark:text-gray-400">{description}</p>
         <div className="flex items-center justify-between pt-2">
           <span className="text-2xl font-bold text-green-600">
-            {price.toLocaleString("fr-FR")} €
+            {formatPrice(price)}
           </span>
           <AnimatedButton className="dark:text-white" onClick={() => window.location.href = `/dashboard/products/details/${slug}`}>Voir le produit</AnimatedButton>
         </div>

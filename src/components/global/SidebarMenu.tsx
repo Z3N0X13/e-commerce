@@ -38,7 +38,7 @@ export function SidebarMenu({ onLinkClick }: { onLinkClick: () => void }) {
             key={link.href}
             href={link.href}
             onClick={onLinkClick}
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-200/75 dark:hover:bg-gray-700/75 text-gray-700 dark:text-gray-300 transition-colors duration-200"
+            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-200/75 dark:hover:bg-neutral-700/75 text-gray-700 dark:text-gray-300 transition-colors duration-200"
           >
             {link.icon}
             <span className="text-sm font-medium">{link.label}</span>

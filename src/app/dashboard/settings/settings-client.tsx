@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Session } from "next-auth";
 import { toast } from "sonner";
+import { Session } from "next-auth";
+import { useState, useEffect } from "react";
 
 import TopBar from "@/components/global/TopBar";
 import Footer from "@/components/global/Footer";
-import { NotificationSettings } from "../../../components/settings/NotificationSettings";
-import { SecuritySettings } from "../../../components/settings/SecuritySettings";
-import { AppearanceSettings } from "../../../components/settings/AppearanceSettings";
-import { PreferencesSidebar } from "../../../components/settings/PreferencesSidebar";
+import { useThemeContext } from "@/components/theme/ThemeProvider";
+import { SecuritySettings } from "@/components/settings/SecuritySettings";
+import { AppearanceSettings } from "@/components/settings/AppearanceSettings";
+import { PreferencesSidebar } from "@/components/settings/PreferencesSidebar";
+import { NotificationSettings } from "@/components/settings/NotificationSettings";
 
 interface SettingsClientProps {
   session: Session;
@@ -44,6 +45,7 @@ interface Settings {
 }
 
 export function SettingsClient({ session }: SettingsClientProps) {
+  const { theme } = useThemeContext();
   const [isLoading, setIsLoading] = useState(true);
   const [settings, setSettings] = useState<Settings>({
     // Notifications
@@ -58,7 +60,7 @@ export function SettingsClient({ session }: SettingsClientProps) {
     sessionTimeout: "30",
 
     // Apparence
-    theme: "light",
+    theme: theme,
     compactMode: false,
     animations: true,
 
@@ -73,14 +75,17 @@ export function SettingsClient({ session }: SettingsClientProps) {
     analytics: true,
   });
 
-  // Charger les paramètres depuis l'API
   useEffect(() => {
     const fetchSettings = async () => {
       try {
         const response = await fetch("/api/settings");
         if (response.ok) {
           const data = await response.json();
-          setSettings(data);
+          setSettings((prev) => ({
+            ...prev,
+            ...data,
+            theme,
+          }));
         } else {
           toast.error("Erreur lors du chargement des paramètres");
         }
@@ -93,7 +98,7 @@ export function SettingsClient({ session }: SettingsClientProps) {
     };
 
     fetchSettings();
-  }, []);
+  }, [theme]);
 
   const handleSettingChange = (key: string, value: boolean | string) => {
     setSettings((prev) => ({
@@ -109,7 +114,9 @@ export function SettingsClient({ session }: SettingsClientProps) {
         <div className="min-h-screen bg-gray-100 dark:bg-black/30 pb-20 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green-500 border-opacity-50 mx-auto mb-4" />
-            <p className="text-gray-600 dark:text-gray-400 text-lg">Chargement des paramètres...</p>
+            <p className="text-gray-600 dark:text-gray-400 text-lg">
+              Chargement des paramètres...
+            </p>
           </div>
         </div>
         <Footer />
@@ -133,7 +140,6 @@ export function SettingsClient({ session }: SettingsClientProps) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Paramètres Principaux */}
             <div className="lg:col-span-2 space-y-6">
               <NotificationSettings
                 session={session}

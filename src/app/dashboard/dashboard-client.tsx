@@ -3,21 +3,46 @@
 import { toast } from "sonner";
 import { Star } from "lucide-react";
 import { Session } from "next-auth";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import { items } from "@/lib/constants";
+import { usePrice } from "@/hooks/use-price";
+import GpuViewer from "@/components/GpuViewer";
 import TopBar from "@/components/global/TopBar";
 import Footer from "@/components/global/Footer";
-import GpuViewer from "@/components/GpuViewer";
 import { AnimatedButton } from "@/components/global/AnimatedButton";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 
 export function DashboardClient({ session }: { session: Session }) {
+  const { formatPrice } = usePrice();
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     toast.message("Ravi de vous revoir, " + session.user?.name + " !", {
       duration: 5000,
     });
+    setIsLoading(false)
   }, [session]);
+
+  const reducePrice = 1999;
+  const normalPrice = 2299;
+
+  if (isLoading) {
+    return (
+      <>
+        <TopBar />
+        <div className="min-h-screen bg-gray-100 dark:bg-black/30 pb-20 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green-500 border-opacity-50 mx-auto mb-4" />
+            <p className="text-gray-600 dark:text-gray-400 text-lg">
+              Chargement...
+            </p>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -50,7 +75,10 @@ export function DashboardClient({ session }: { session: Session }) {
                 className="ml-4 px-8 py-6 text-xl dark:text-white"
                 baseColor="bg-black dark:bg-green-500"
                 hoverColor="dark:hover:bg-green-600"
-                onClick={() => (window.location.href = "/dashboard/products/details/nvidia-rtx-4090")}
+                onClick={() =>
+                  (window.location.href =
+                    "/dashboard/products/details/nvidia-rtx-4090")
+                }
               >
                 En savoir plus
               </AnimatedButton>
@@ -112,15 +140,15 @@ export function DashboardClient({ session }: { session: Session }) {
               <li>• 3 ans de garantie</li>
             </ul>
             <div className="flex items-end gap-4 mb-4">
-              <span className="text-4xl font-bold text-green-400">1 999 €</span>
+              <span className="text-4xl font-bold text-green-400">{formatPrice(reducePrice)}</span>
               <span className="text-sm text-gray-400 line-through dark:text-gray-300">
-                2 299 €
+                {formatPrice(normalPrice)}
               </span>
             </div>
             <AnimatedButton
               size={"lg"}
-              baseColor="bg-green-600"
-              hoverColor="hover:bg-green-700"
+              baseColor="bg-green-500"
+              hoverColor="hover:bg-green-600"
               className="w-full cursor-pointer dark:text-white"
               onClick={() =>
                 (window.location.href =
@@ -131,14 +159,11 @@ export function DashboardClient({ session }: { session: Session }) {
             </AnimatedButton>
             <div className="flex items-center gap-1">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  size={16}
-                  fill={"#facc15"}
-                  stroke="#facc15"
-                />
+                <Star key={i} size={16} fill={"#facc15"} stroke="#facc15" />
               ))}
-              <span className="text-sm text-gray-400 dark:text-gray-300">(11 avis)</span>
+              <span className="text-sm text-gray-400 dark:text-gray-300">
+                (11 avis)
+              </span>
             </div>
           </div>
         </section>

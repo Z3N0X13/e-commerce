@@ -3,8 +3,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { CartUIProvider } from "@/app/context/cart-ui";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { SessionWrapper } from "@/components/SessionWrapper";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { CurrencyProvider } from "@/app/context/currency-context";
 
 import "./globals.css";
 
@@ -29,19 +30,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <SessionWrapper>
-          <ThemeProvider>
-            <CartUIProvider>
-              {children}
-            </CartUIProvider>
-          </ThemeProvider>
-        </SessionWrapper>
-        <Toaster position="top-left" richColors />
-      </body>
-    </html>
+    <ThemeProvider>
+      <html lang="en" suppressHydrationWarning>
+        <head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+          (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+              document.documentElement.classList.add('dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+            }
+          })()
+        `,
+            }}
+          />
+        </head>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <SessionWrapper>
+            <CurrencyProvider>
+              <CartUIProvider>{children}</CartUIProvider>
+            </CurrencyProvider>
+          </SessionWrapper>
+          <Toaster position="top-left" richColors />
+        </body>
+      </html>
+    </ThemeProvider>
   );
 }

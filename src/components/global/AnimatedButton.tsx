@@ -1,7 +1,8 @@
 import React from "react";
+
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { AnimatedButtonProps } from "@/types";
+import { Button } from "@/components/ui/button";
 
 const sizeClasses: Record<
   Exclude<AnimatedButtonProps["size"], null | undefined>,

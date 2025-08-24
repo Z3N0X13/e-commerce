@@ -1,9 +1,3 @@
-- Bouton pour ajouter au favoris (quand on clique sur le coeur, on peut cliquer pour désajouter)
-
-- Faire les fiches produits (ajouter des commentaires)
-
 - Faire la fonctionnalité de stock / hors-stock dans la db
-
-- Page order (https://dribbble.com/shots/24130403-E-commerce-My-orders-page)
 
 - Faire les pages de politique de confidentialité et de mentions légales

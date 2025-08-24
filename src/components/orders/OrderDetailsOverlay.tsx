@@ -5,8 +5,8 @@ import React, { useEffect } from "react";
 import { ArrowLeft, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import StatusBadge from "./StatusBadge";
 import type { Order } from "@/types";
+import StatusBadge from "./StatusBadge";
 import { Button } from "@/components/ui/button";
 
 type Props = {

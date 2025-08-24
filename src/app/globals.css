@@ -127,3 +127,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+.cart-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.cart-scrollbar::-webkit-scrollbar-track {
+  background: #171717;
+}
+
+.cart-scrollbar::-webkit-scrollbar-thumb {
+  background: #171717;
+  border-radius: 8px;
+}
+
+.cart-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #171717;
+}
+
+.cart-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #171717 #171717;
+}

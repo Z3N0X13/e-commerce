@@ -1,13 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { toast } from "sonner";
+import { useState } from "react";
 import { Session } from "next-auth";
 import { Shield, Globe, Monitor, User, Settings } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
+
 import {
   Select,
   SelectContent,
@@ -15,6 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { useCurrency } from "@/app/context/currency-context";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface PreferencesSidebarProps {
   session: Session;
@@ -34,6 +36,7 @@ export function PreferencesSidebar({
   settings,
   onSettingChange,
 }: PreferencesSidebarProps) {
+  const { currency, setCurrency } = useCurrency();
   const [isUpdating, setIsUpdating] = useState(false);
 
   const handleSettingChange = async (key: string, value: boolean | string) => {
@@ -115,8 +118,8 @@ export function PreferencesSidebar({
           <div className="space-y-2">
             <Label className="text-sm font-medium">Devise</Label>
             <Select
-              value={settings.currency}
-              onValueChange={(value) => handleSettingChange("currency", value)}
+              value={currency}
+              onValueChange={(value) => setCurrency(value as "EUR" | "USD" | "GBP" | "CHF" | "JPY")}
               disabled={isUpdating}
             >
               <SelectTrigger>
@@ -127,6 +130,7 @@ export function PreferencesSidebar({
                 <SelectItem value="USD">USD ($)</SelectItem>
                 <SelectItem value="GBP">GBP (£)</SelectItem>
                 <SelectItem value="CHF">CHF (CHF)</SelectItem>
+                <SelectItem value="JPY">JPY (¥)</SelectItem>
               </SelectContent>
             </Select>
           </div>

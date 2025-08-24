@@ -42,13 +42,13 @@ export const Footer = () => {
             Contact
           </a>
           <a
-            href="/legal-notices"
+            href="/dashboard/legal/legal-notices"
             className="hover:text-green-400 transition-colors cursor-pointer"
           >
             Mentions légales
           </a>
           <a
-            href="/privacy-policy"
+            href="/dashboard/legal/privacy-policy"
             className="hover:text-green-400 transition-colors cursor-pointer"
           >
             Politique de confidentialité

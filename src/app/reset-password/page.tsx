@@ -1,10 +1,11 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { redirect, useSearchParams } from "next/navigation";
+
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 export default function ResetPasswordPage() {
   const [password, setPassword] = useState("");
@@ -23,11 +24,12 @@ export default function ResetPasswordPage() {
 
     if (res.ok) {
       setMessage("Mot de passe mis à jour !");
+      redirect("/login")
     } else {
       setMessage("Lien invalide ou expiré.");
     }
   };
-
+m
   if (!token) return <p>Token manquant.</p>;
 
   return (

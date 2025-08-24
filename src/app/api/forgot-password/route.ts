@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-import { randomBytes } from "crypto";
 import { addHours } from "date-fns";
+import { randomBytes } from "crypto";
+import { NextResponse } from "next/server";
+
+import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
   const { email } = await req.json();

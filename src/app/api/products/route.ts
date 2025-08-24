@@ -4,7 +4,7 @@ import { Product } from "@/types";
 
 export const products: Product[] = [
   {
-    id: 1,
+    id: 2,
     title: "NVIDIA RTX 5090",
     slug: "nvidia-rtx-5090",
     description: "32 Go GDDR7 – Carte graphique ultime de nouvelle génération, pour des performances inégalées en 8K et au-delà.",
